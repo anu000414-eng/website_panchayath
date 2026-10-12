@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Thavinhal Grama Panchayat | WebGIS Portal</title>
+    <style>
+        :root {
+            --primary: #2d6a4f;
+            --primary-dark: #1b4332;
+            --accent: #d8f3dc;
+            --text-main: #212529;
+            --text-muted: #6c757d;
+            --white: #ffffff;
+            --bg-light: #f4f7f6;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* Hero Header Section */
+        header {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            color: var(--white);
+            padding: 4rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        header img {
+            max-width: 120px;
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: clamp(1.8rem, 6vw, 2.8rem);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-top: 0.5rem;
+            font-weight: 300;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: -3rem auto 0;
+            padding: 0 1.5rem 4rem;
+        }
+
+        /* Main Content Card */
+        .main-card {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            margin-bottom: 2rem;
+        }
+
+        .hero-layout {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .hero-image {
+            flex: 1 1 100%;
+            max-height: 400px;
+            overflow: hidden;
+        }
+
+        @media (min-width: 768px) {
+            .hero-image { flex: 1 1 50%; height: auto; }
+            .hero-content { flex: 1 1 50%; }
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-content {
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .hero-content h2 {
+            color: var(--primary);
+            margin-top: 0;
+            font-size: 1.8rem;
+        }
+
+        /* Launch Button Styling */
+        .launch-btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: var(--white);
+            text-decoration: none;
+            padding: 1.2rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-top: 1.5rem;
+            transition: all 0.3s ease;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(45, 106, 79, 0.3);
+            border: 2px solid transparent;
+        }
+
+        .launch-btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(45, 106, 79, 0.4);
+        }
+
+        /* Info Grid */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .info-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 12px;
+            border-top: 5px solid var(--primary);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .info-card h3 {
+            margin-top: 0;
+            color: var(--primary-dark);
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .info-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0 0;
+        }
+
+        .info-card li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .info-card li:last-child { border-bottom: none; }
+
+        .info-card li strong { color: var(--primary); font-weight: 600; }
+
+        /* Content Section */
+        .content-section {
+            background: var(--white);
+            padding: 3rem 2rem;
+            border-radius: 12px;
+            margin-top: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .content-section h2 {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-dark);
+            color: var(--white);
+            padding: 4rem 1rem 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .contact-box {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .contact-name { font-size: 1.2rem; margin-bottom: 0.5rem; display: block; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <!-- Mock Logo - Replace with actual URL -->
+        <img src="https://3.bp.blogspot.com/-fJZ5dsCju8E/ThsGlhQR6aI/AAAAAAAAAFw/NLASYOVs7ZA/s1600/Kerala+Govt+Logo.jpg" alt="Government of Kerala Emblem">
+        <h1>Thavinhal Grama Panchayat</h1>
+        <div class="subtitle">Wayanad District, Kerala | WebGIS Administrative Portal</div>
+    </header>
+
+    <div class="container">
+        
+        <main class="main-card">
+            <div class="hero-layout">
+                <div class="hero-image">
+                    <!-- Replace with your actual image file -->
+                    <img src="thavinhal office.webp" alt="Thavinhal Panchayat Office">
+                </div>
+                <div class="hero-content">
+                    <h2>Digital Mapping Initiative</h2>
+                    <p>
+                        This WebGIS project presents detailed geographical and administrative information of Thavinhal Panchayat. Explore our spatial data including boundaries, wards, road networks, and topography.
+                    </p>
+                    
+                    <!-- THE LAUNCH BUTTON - REPLACE THE HREF WITH YOUR LINK -->
+                    <a href=" https://anu000414-eng.github.io/THAVINHAL-/" class="launch-btn" target="_blank">
+                        LAUNCH INTERACTIVE WEBGIS MAP
+                    </a>
+                </div>
+            </div>
+        </main>
+
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>Administrative Hierarchy</h3>
+                <ul>
+                    <li><strong>State</strong> <span>Kerala</span></li>
+                    <li><strong>District</strong> <span>Wayanad</span></li>
+                    <li><strong>Taluk</strong> <span>Mananthavady</span></li>
+                    <li><strong>Block</strong> <span>Mananthavady</span></li>
+                </ul>
+            </div>
+
+            <div class="info-card">
+                <h3>Geographic Profile</h3>
+                <ul>
+                    <li><strong>Physiography</strong> <span>Hilly / Undulating</span></li>
+                    <li><strong>Drainage</strong> <span>Kabini Basin</span></li>
+                    <li><strong>Surroundings</strong> <span>Periya, Valad</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <section class="content-section">
+            <h2>Governance & Decentralisation</h2>
+            <p style="text-align: justify;">
+                Formed on 1 November 1956, the Government of Kerala has been a pioneer in decentralised governance. Through the three-tier Panchayati Raj system, local bodies like <strong>Thavinhal Grama Panchayat</strong> are empowered to address community needs directly. This WebGIS portal represents our commitment to transparency and modern planning through technology.
+            </p>
+        </section>
+
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <p><strong>MSc Geography — WebGIS Academic Project</strong></p>
+            <p><a href="https://lsgkerala.gov.in" class="footer-link" target="_blank">Visit Local Self Government Department (LSGD)</a></p>
+            
+            <div class="contact-box">
+                <span class="contact-name">Anamika P.</span>
+                <p>Email: <a href="mailto:anu000414@gmail.com" class="footer-link">anu000414@gmail.com</a></p>
+                <p style="font-size: 0.8rem; opacity: 0.6; margin-top: 2rem;">
+                    &copy; 2026 Thavinhal Grama Panchayat WebGIS Project.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
